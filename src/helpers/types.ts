@@ -7,8 +7,22 @@ export interface LoanInputs {
   payBack: PaymentFrequency;
 }
 
-export type CompoundFrequency = "annually" | "semi-annually" | "quarterly" | "monthly" | "semi-monthly" | "weekly" | "daily";
-export type PaymentFrequency = "daily" | "weekly" | "half-monthly" | "monthly" | "quarterly" | "semi-annually" | "annually";
+export type CompoundFrequency =
+  | "annually"
+  | "semi-annually"
+  | "quarterly"
+  | "monthly"
+  | "semi-monthly"
+  | "weekly"
+  | "daily";
+export type PaymentFrequency =
+  | "daily"
+  | "weekly"
+  | "half-monthly"
+  | "monthly"
+  | "quarterly"
+  | "semi-annually"
+  | "annually";
 
 export interface PaymentSchedule {
   period: number;

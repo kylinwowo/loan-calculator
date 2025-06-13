@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Form, showToast, Toast } from "@raycast/api";
+import { ActionPanel, Action, Form } from "@raycast/api";
 import { useState } from "react";
 import { LoanInputs, CompoundFrequency, PaymentFrequency, COMPOUND_OPTIONS, PAYMENT_OPTIONS } from "./helpers/types";
 import ResultsView from "./components/ResultsView";
@@ -18,7 +18,7 @@ export default function Command() {
       loanTermMonths,
       interestRate,
       compound,
-      payBack
+      payBack,
     };
   }
 
@@ -26,18 +26,12 @@ export default function Command() {
 
   const Actions = (
     <ActionPanel>
-      <Action.Push 
-        title="Calculate" 
-        target={resultsView} 
-      />
+      <Action.Push title="Calculate" target={resultsView} />
     </ActionPanel>
   );
 
   return (
-    <Form
-      navigationTitle="Loan Calculator"
-      actions={Actions}
-    >
+    <Form navigationTitle="Loan Calculator" actions={Actions}>
       <Form.TextField
         id="loanAmount"
         title="Loan Amount ($)"
@@ -46,9 +40,9 @@ export default function Command() {
         onChange={setLoanAmount}
         info="The total amount you want to borrow"
       />
-      
+
       <Form.Separator />
-      
+
       <Form.TextField
         id="loanTermYears"
         title="Loan Term (Years)"
@@ -57,7 +51,7 @@ export default function Command() {
         onChange={setLoanTermYears}
         info="Number of years for the loan"
       />
-      
+
       <Form.TextField
         id="loanTermMonths"
         title="Loan Term (Months)"
@@ -66,9 +60,9 @@ export default function Command() {
         onChange={setLoanTermMonths}
         info="Additional months (will be added to years)"
       />
-      
+
       <Form.Separator />
-      
+
       <Form.TextField
         id="interestRate"
         title="Interest Rate (%)"
@@ -77,7 +71,7 @@ export default function Command() {
         onChange={setInterestRate}
         info="Annual interest rate as a percentage"
       />
-      
+
       <Form.Dropdown
         id="compound"
         title="Compound Frequency"
@@ -89,7 +83,7 @@ export default function Command() {
           <Form.Dropdown.Item key={option.value} value={option.value} title={option.title} />
         ))}
       </Form.Dropdown>
-      
+
       <Form.Dropdown
         id="payBack"
         title="Payment Frequency"
