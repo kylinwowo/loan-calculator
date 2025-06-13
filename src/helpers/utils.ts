@@ -16,12 +16,58 @@ export function getFrequencyPerYear(frequency: CompoundFrequency | PaymentFreque
 export function calculateLoan(inputs: LoanInputs): CalculationResult {
   const principal = parseFloat(inputs.loanAmount);
   const annualRate = parseFloat(inputs.interestRate) / 100;
-  const totalYears = parseFloat(inputs.loanTermYears || "0") + parseFloat(inputs.loanTermMonths || "0") / 12;
+  
+  const loanYears = parseFloat(inputs.loanTermYears || "0");
+  const loanMonths = parseFloat(inputs.loanTermMonths || "0");
+  
+  if (principal <= 0) {
+    throw new Error("Loan amount must be greater than 0");
+  }
+  if (annualRate < 0) {
+    throw new Error("Interest rate cannot be negative");
+  }
+  if (loanYears < 0 || loanMonths < 0) {
+    throw new Error("Loan term cannot be negative");
+  }
+  
+  const totalYears = loanYears + loanMonths / 12;
+  
+  if (totalYears <= 0) {
+    throw new Error("Total loan term must be greater than 0");
+  }
   
   const compoundFreq = getFrequencyPerYear(inputs.compound);
   const paymentFreq = getFrequencyPerYear(inputs.payBack);
   
   const totalPayments = totalYears * paymentFreq;
+  
+  // Handle zero interest rate case
+  if (annualRate === 0) {
+    const payment = principal / totalPayments;
+    const schedule: PaymentSchedule[] = [];
+    let remainingBalance = principal;
+    
+    for (let i = 1; i <= totalPayments; i++) {
+      const principalPayment = payment;
+      remainingBalance -= principalPayment;
+      
+      schedule.push({
+        period: i,
+        payment: payment,
+        principal: principalPayment,
+        interest: 0,
+        balance: Math.max(0, remainingBalance)
+      });
+    }
+    
+    return {
+      totalPayments: principal,
+      totalInterest: 0,
+      monthlyPayment: payment,
+      schedule
+    };
+  }
+  
   const periodicRate = annualRate / compoundFreq;
   const effectiveRate = Math.pow(1 + periodicRate, compoundFreq / paymentFreq) - 1;
   

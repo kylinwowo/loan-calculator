@@ -9,9 +9,18 @@ interface ResultsViewProps {
 export default function ResultsView({ inputs }: ResultsViewProps) {
   const { pop } = useNavigation();
   
+  const processedInputs: LoanInputs = {
+    loanAmount: inputs.loanAmount || "10000",
+    loanTermYears: inputs.loanTermYears || "10",
+    loanTermMonths: inputs.loanTermMonths || "0",
+    interestRate: inputs.interestRate || "6",
+    compound: inputs.compound || "monthly",
+    payBack: inputs.payBack || "monthly"
+  };
+  
   try {
-    const result = calculateLoan(inputs);
-    const paymentFreqText = PAYMENT_OPTIONS.find(opt => opt.value === inputs.payBack)?.title || "Monthly";
+    const result = calculateLoan(processedInputs);
+    const paymentFreqText = PAYMENT_OPTIONS.find(opt => opt.value === processedInputs.payBack)?.title || "Monthly";
     
     return (
       <List navigationTitle="Loan Calculation Results">
@@ -23,7 +32,7 @@ export default function ResultsView({ inputs }: ResultsViewProps) {
           />
           <List.Item
             title="Total Interest"
-            subtitle={`$${result.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+            subtitle={`$${result.totalInterest.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${((result.totalInterest / result.totalPayments) * 100).toFixed(1)}% of total)`}
             icon="📈"
           />
           <List.Item
@@ -47,18 +56,6 @@ export default function ResultsView({ inputs }: ResultsViewProps) {
               icon="📅"
             />
           ))}
-        </List.Section>
-        
-        <List.Section>
-          <List.Item
-            title="Calculate Again"
-            icon="🔄"
-            actions={
-              <ActionPanel>
-                <Action title="Go Back" onAction={pop} />
-              </ActionPanel>
-            }
-          />
         </List.Section>
       </List>
     );

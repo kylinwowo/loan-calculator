@@ -11,16 +11,7 @@ export default function Command() {
   const [compound, setCompound] = useState<CompoundFrequency>("monthly");
   const [payBack, setPayBack] = useState<PaymentFrequency>("monthly");
 
-  function validateAndGetInputs(): LoanInputs | null {
-    if (!loanAmount || !interestRate || (!loanTermYears && !loanTermMonths)) {
-      showToast({
-        style: Toast.Style.Failure,
-        title: "Missing Information",
-        message: "Please fill in all required fields"
-      });
-      return null;
-    }
-
+  function getInputs(): LoanInputs {
     return {
       loanAmount,
       loanTermYears,
@@ -31,19 +22,13 @@ export default function Command() {
     };
   }
 
-  const inputs = validateAndGetInputs();
-  const resultsView = inputs ? <ResultsView inputs={inputs} /> : null;
+  const resultsView = <ResultsView inputs={getInputs()} />;
 
   const Actions = (
     <ActionPanel>
       <Action.Push 
-        title="Calculate Loan" 
+        title="Calculate" 
         target={resultsView} 
-        onPush={() => {
-          if (!validateAndGetInputs()) {
-            return false; // Prevent navigation if validation fails
-          }
-        }}
       />
     </ActionPanel>
   );
@@ -55,8 +40,8 @@ export default function Command() {
     >
       <Form.TextField
         id="loanAmount"
-        title="Loan Amount"
-        placeholder="Enter loan amount in USD"
+        title="Loan Amount ($)"
+        placeholder="10000"
         value={loanAmount}
         onChange={setLoanAmount}
         info="The total amount you want to borrow"
@@ -67,7 +52,7 @@ export default function Command() {
       <Form.TextField
         id="loanTermYears"
         title="Loan Term (Years)"
-        placeholder="0"
+        placeholder="10"
         value={loanTermYears}
         onChange={setLoanTermYears}
         info="Number of years for the loan"
@@ -87,7 +72,7 @@ export default function Command() {
       <Form.TextField
         id="interestRate"
         title="Interest Rate (%)"
-        placeholder="Enter annual interest rate"
+        placeholder="6"
         value={interestRate}
         onChange={setInterestRate}
         info="Annual interest rate as a percentage"
