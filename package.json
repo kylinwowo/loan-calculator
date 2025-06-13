@@ -3,8 +3,9 @@
   "name": "loan-calculator",
   "title": "Loan Calculator",
   "description": "Calculate loan payments with customizable terms and payment schedules",
-  "icon": "extension-icon.png",
+  "icon": "icon.png",
   "author": "kylinwowo",
+  "categories": ["Finance"],
   "license": "MIT",
   "commands": [
     {
