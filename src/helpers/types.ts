@@ -35,7 +35,7 @@ export interface PaymentSchedule {
 export interface CalculationResult {
   totalPayments: number;
   totalInterest: number;
-  monthlyPayment: number;
+  paymentAmount: number;
   schedule: PaymentSchedule[];
 }
 
