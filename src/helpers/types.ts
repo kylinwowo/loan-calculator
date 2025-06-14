@@ -18,7 +18,7 @@ export type CompoundFrequency =
 export type PaymentFrequency =
   | "daily"
   | "weekly"
-  | "half-monthly"
+  | "semi-monthly"
   | "monthly"
   | "quarterly"
   | "semi-annually"
@@ -52,7 +52,7 @@ export const COMPOUND_OPTIONS = [
 export const PAYMENT_OPTIONS = [
   { title: "Every Day", value: "daily" },
   { title: "Every Week", value: "weekly" },
-  { title: "Every Half Month", value: "semi-monthly" },
+  { title: "Every Semi Month", value: "semi-monthly" },
   { title: "Every Month", value: "monthly" },
   { title: "Every Quarter", value: "quarterly" },
   { title: "Every 6 Months", value: "semi-annually" },
