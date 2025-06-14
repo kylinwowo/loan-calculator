@@ -52,7 +52,7 @@ export const COMPOUND_OPTIONS = [
 export const PAYMENT_OPTIONS = [
   { title: "Every Day", value: "daily" },
   { title: "Every Week", value: "weekly" },
-  { title: "Every Half Month", value: "half-monthly" },
+  { title: "Every Half Month", value: "semi-monthly" },
   { title: "Every Month", value: "monthly" },
   { title: "Every Quarter", value: "quarterly" },
   { title: "Every 6 Months", value: "semi-annually" },
