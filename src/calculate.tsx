@@ -10,7 +10,7 @@ interface Preferences {
 export default function Command() {
   const preferences = getPreferenceValues<Preferences>();
   const currencySymbol = preferences.currencySymbol || "$";
-  
+
   const [loanAmount, setLoanAmount] = useState<string>("");
   const [loanTermYears, setLoanTermYears] = useState<string>("");
   const [loanTermMonths, setLoanTermMonths] = useState<string>("");

@@ -26,9 +26,9 @@ export default function ResultsView({ inputs }: ResultsViewProps) {
 
   // Helper function to format currency
   const formatCurrency = (amount: number): string => {
-    return `${currencySymbol}${amount.toLocaleString("en-US", { 
-      minimumFractionDigits: 2, 
-      maximumFractionDigits: 2 
+    return `${currencySymbol}${amount.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     })}`;
   };
 
@@ -39,11 +39,7 @@ export default function ResultsView({ inputs }: ResultsViewProps) {
     return (
       <List navigationTitle="Loan Calculation Results">
         <List.Section title="Overview">
-          <List.Item
-            title="Total Payments"
-            subtitle={formatCurrency(result.totalPayments)}
-            icon="💰"
-          />
+          <List.Item title="Total Payments" subtitle={formatCurrency(result.totalPayments)} icon="💰" />
           <List.Item
             title="Total Interest"
             subtitle={`${formatCurrency(result.totalInterest)} (${((result.totalInterest / result.totalPayments) * 100).toFixed(1)}% of total)`}
