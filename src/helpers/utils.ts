@@ -7,7 +7,7 @@ export function getFrequencyPerYear(frequency: CompoundFrequency | PaymentFreque
     case "weekly":
       return 52;
     case "semi-monthly":
-    case "half-monthly":
+    case "semi-monthly":
       return 24;
     case "monthly":
       return 12;
